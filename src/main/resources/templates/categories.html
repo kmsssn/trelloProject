@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html xmlns:th = "http://www.thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="main_layout.html">
+<div layout:fragment="component">
+  <div class="container">
+    <button type="button" class="btn btn-secondary mt-1 btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+      Add Category
+    </button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <form th:action="@{'/addCatCat'}" method="post">
+          <div class="modal-header">
+            <h1 class="modal-title fs-5" id="exampleModalLabel">Modal title</h1>
+            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+          </div>
+            <div class="modal-body col-10 mx-auto">
+              <div class="row">
+                <div class="col-12">
+                  <label>
+                    Name
+                  </label>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-12 mt-2">
+                  <input type="text" name="name" class="form-control">
+                </div>
+              </div>
+            </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="submit" class="btn btn-success">Add category</button>
+          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <table class="table table-striped col-4 text-center">
+      <thead>
+      <tr>
+        <th>
+          ID
+        </th>
+        <th>
+          NAME
+        </th>
+        <th>
+          Delete
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr th:each="c : ${categories}">
+        <td th:text="${c.id}">
+        </td>
+        <td th:text="${c.name}">
+        </td>
+        <td>
+            <button type="button" class="btn btn-danger btn-sm" data-bs-toggle="modal" data-bs-target="#deleteModal">
+              Delete Category
+            </button>
+        </td>
+        <div class="modal fade" id="deleteModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <form th:action="@{'/deleteCats'}" method="post">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="deleteModal1">Modal title</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                  Are you sure?
+                </div>
+                <input type="hidden" th:value="${c.id}" name="catId">
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  <button type="submit" class="btn btn-danger">Delete</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+</html>
